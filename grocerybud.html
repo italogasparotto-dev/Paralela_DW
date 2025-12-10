@@ -1,0 +1,120 @@
+<html>
+<head>
+    <title>Grocery Bud</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 300px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        #grocery-form {
+            display: flex;
+            justify-content: space-between;
+        }
+        #grocery-input {
+            flex: 1;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        #grocery-list {
+            margin-top: 20px;
+        }
+        .grocery-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .alert {
+            color: red;
+            text-align: center;
+        }
+        #clear-btn {
+            width: 100%;
+            padding: 10px;
+            background: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+</html>
+<div class="container">
+    <h1>Grocery Bud</h1>
+    <form id="grocery-form">
+        <input type="text" id="grocery-input" placeholder="e.g. eggs" />
+        <button type="submit">Submit</button>
+    </form>
+    <div class="alert" id="alert"></div>
+    <div class="grocery-list" id="grocery-list"></div>
+    <button id="clear-btn">Clear Items</button>
+    <div class="footer">
+        <p>Created by Your Name</p>
+    </div>
+</div>
+<script>
+    const groceryForm = document.getElementById('grocery-form');
+    const groceryInput = document.getElementById('grocery-input');
+    const groceryList = document.getElementById('grocery-list');
+    const alertBox = document.getElementById('alert');
+    const clearBtn = document.getElementById('clear-btn');
+
+    groceryForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const item = groceryInput.value.trim();
+        if (item) {
+            addItem(item);
+            groceryInput.value = '';
+            showAlert('Item added to the list', 'success');
+        } else {
+            showAlert('Please enter a value', 'danger');
+        }
+    });
+
+    clearBtn.addEventListener('click', function() {
+        groceryList.innerHTML = '';
+        showAlert('All items cleared', 'success');
+    });
+
+    function addItem(item) {
+        const div = document.createElement('div');
+        div.classList.add('grocery-item');
+        div.innerHTML = `
+            <span>${item}</span>
+            <button class="delete-btn">Delete</button>
+        `;
+        groceryList.appendChild(div);
+
+        div.querySelector('.delete-btn').addEventListener('click', function() {
+            groceryList.removeChild(div);
+            showAlert('Item removed', 'success');
+        });
+    }
+
+    function showAlert(message, type) {
+        alertBox.textContent = message;
+        alertBox.style.color = type === 'success' ? 'green' : 'red';
+        setTimeout(() => {
+            alertBox.textContent = '';
+        }, 2000);
+    }
+    </script>
+</html>
