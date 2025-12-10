@@ -61,13 +61,13 @@
     <h1>Grocery Bud</h1>
     <form id="grocery-form">
         <input type="text" id="grocery-input" placeholder="e.g. eggs" />
-        <button type="submit">Submit</button>
+        <button type="submit">Submiter</button>
     </form>
     <div class="alert" id="alert"></div>
     <div class="grocery-list" id="grocery-list"></div>
-    <button id="clear-btn">Clear Items</button>
+    <button id="clear-btn">Apagar Items</button>
     <div class="footer">
-        <p>Criado por Ítalo Fernandes</p>
+        <p>Criado Por Ítalo</p>
     </div>
 </div>
 <script>
@@ -83,15 +83,15 @@
         if (item) {
             addItem(item);
             groceryInput.value = '';
-            showAlert('Item added to the list', 'success');
+            showAlert('Item adicionado', 'successo');
         } else {
-            showAlert('Please enter a value', 'danger');
+            showAlert('Por Favor insira um valor', 'perigo');
         }
     });
 
     clearBtn.addEventListener('click', function() {
         groceryList.innerHTML = '';
-        showAlert('All items cleared', 'success');
+        showAlert('Todos items apagados', 'successo');
     });
 
     function addItem(item) {
@@ -105,17 +105,16 @@
 
         div.querySelector('.delete-btn').addEventListener('click', function() {
             groceryList.removeChild(div);
-            showAlert('Item removed', 'success');
+            showAlert('Item removido', 'successo');
         });
     }
 
     function showAlert(message, type) {
         alertBox.textContent = message;
-        alertBox.style.color = type === 'success' ? 'green' : 'red';
+        alertBox.style.color = type === 'successo' ? 'green' : 'red';
         setTimeout(() => {
             alertBox.textContent = '';
         }, 2000);
     }
     </script>
-
 </html>
